@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelerikAspNetCoreApp1", "TelerikAspNetCoreApp1\TelerikAspNetCoreApp1.csproj", "{79B695B7-7A89-4FA1-A397-8D9E9EDCC1ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F354DE17-3132-438A-BCA9-F364631A9F4A}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{79B695B7-7A89-4FA1-A397-8D9E9EDCC1ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79B695B7-7A89-4FA1-A397-8D9E9EDCC1ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79B695B7-7A89-4FA1-A397-8D9E9EDCC1ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79B695B7-7A89-4FA1-A397-8D9E9EDCC1ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AE9AE0D2-E941-417F-8B3D-D3808C4DA833}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,145 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="placeholders mb-2">
+    <div class="row d-flex justify-content-start">
+        <div class="col-md-2 mb-3 placeholder">
+            <img class="img-fluid " alt="200x200" src="~/Images/200.png">
+        </div>
+        <div class="col-md-3">
+            <h2>Lorem ipsum dolor sit amet...</h2>
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                galley of type and scrambled it to make a type specimen book.
+            </p>
+            <p>
+                @(Html.Kendo().Button().Name("PrimaryButton").ThemeColor(ThemeColor.Primary).Content("Primary Button"))
+            </p>
+        </div>
+        <div class="col-md-3">
+            <h2>&nbsp;</h2>
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                galley of type and scrambled it to make a type specimen book.
+            </p>
+            <p>
+                @(Html.Kendo().Button().Name("TextButton").Content("Button"))
+            </p>
+        </div>
+        <div class="col-md-3">
+            <h2>&nbsp;</h2>
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                galley of type and scrambled it to make a type specimen book.
+            </p>
+            <p>
+                @(Html.Kendo().Button().Name("Button").Content("Button"))
+            </p>
+        </div>
+    </div>
+</div>  
+
+<div class="row">
+    <div class="col-12">
+
+@(Html.Kendo().Grid<TelerikAspNetCoreApp1.Models.OrderViewModel>()
+    .Name("grid")
+    .ContextMenu(menu => menu
+    .Head(head =>
+    {
+        head.Create();
+        head.Separator();
+        head.SortAsc();
+        head.SortDesc();
+        head.Separator();
+        head.ExportPDF().Text("Generate Pdf File").Icon("file");
+        head.ExportExcel();
+    })
+    .Body(body =>
+    {
+        body.Edit();
+        body.Destroy();
+        body.Separator();
+        body.Select();
+        body.CopySelection();
+        body.CopySelectionNoHeaders();
+        body.Separator();
+        body.ReorderRow();
+        body.Custom("myTool").Text("Check status").Icon("gear");
+
+    })
+    )
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.OrderID).Filterable(false);
+        columns.Bound(p => p.Freight);
+        columns.Bound(p => p.OrderDate).Format("{0:MM/dd/yyyy}");
+        columns.Bound(p => p.ShipName);
+        columns.Bound(p => p.ShipCity);
+    })
+    .Selectable(selectable => selectable
+    .Mode(GridSelectionMode.Multiple))
+    .Pageable()
+    .Sortable()
+    .Scrollable()
+    .Groupable()
+    .Filterable()
+    .HtmlAttributes(new { style = "height:550px;" })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Model(model => model.Id(p => p.OrderID))
+        .PageSize(20)
+        .Read(read => read.Action("Orders_Read", "Grid"))
+        )
+    )
+
+        @(Html.Kendo().Notification()
+            .Name("notification")
+            .Position(p => p.Pinned(true).Top(60).Left(30))
+            .AutoHideAfter(3000)
+            )
+
+        @(Html.Kendo().Notification()
+            .Name("notificationOk")
+            .Position(p => p.Pinned(true).Top(30).Left(30))
+            .AutoHideAfter(2500)
+            )
+
+        <script>
+
+            kendo.ui.grid.commands["myToolCommand"] = kendo.ui.grid.GridCommand.extend({
+                exec: function () { 
+
+                    var selectedItems = $("#grid").data("kendoGrid").selectedKeyNames();
+                    var actualItems = [];
+
+                    if (selectedItems.length > 0) {
+                        selectedItems.forEach(function (key) {
+
+                            var item = grid.dataSource.get(key);
+                            if (item.ShipCity == "Porto Alegre") {
+                                var popupNotification = $("#notification").data("kendoNotification");
+                                popupNotification.show(`This city '${item.ShipCity}' is temporary blocked!`, "error")
+                            }
+                            else {
+                                actualItems.push(item);
+                            }
+                        });
+                    }
+                    if (actualItems.length > 0) {
+                        var popupNotification = $("#notificationOk").data("kendoNotification");
+                        popupNotification.show(`'${actualItems.length}' cities available!`, "info")
+                    }
+                }
+            });
+
+        </script>
+    </div>
+</div>
+
+
